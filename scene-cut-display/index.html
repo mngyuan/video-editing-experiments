@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Load the Paper.js library -->
+<script type="text/javascript" src="node_modules/paper/dist/paper-full.js"></script>
+<script type="text/javascript" src="node_modules/papaparse/papaparse.js"></script>
+<!-- Define inlined JavaScript -->
+<script type="text/javascript">
+	// Only executed our code once the DOM is ready.
+	window.onload = async function() {
+		// Get a reference to the canvas object
+		var canvas = document.getElementById('myCanvas');
+		// Create an empty project and a view for the canvas:
+		paper.setup(canvas);
+		// Draw the view now:
+		paper.view.draw();
+
+		var {width, height} = paper.view.size;
+
+		const resp = await fetch('/assets/drivemycar/drivemycarscenes.csv');
+		const rawcsv = await resp.text();
+		const sceneCSV = Papa.parse(rawcsv, {header: true});
+		// papaparse results in the last object being empty, not sure why
+		const sceneData = sceneCSV.data.slice(0, sceneCSV.data.length - 1);
+
+		// fetch all scene images
+		const sceneImages = await Promise.all(sceneData.map(scene => 
+			fetch(`/assets/drivemycar/sceneimages/${scene['Scene Number'].padStart(3, '0')}.jpg`)
+		));
+
+		const lastFrame = sceneData[sceneData.length - 1]['End Frame'];
+		const findScene = (percent) => {
+			const frameNeedle = Math.round(percent * lastFrame);
+			for (const scene of sceneData) {
+				if (frameNeedle <= scene['End Frame'] && frameNeedle >= scene['Start Frame']) {
+					return scene;
+				}
+			}
+		}
+
+		// 1=whole film, 0=frame by frame
+		const zoomLevel = 1;
+		const frameheight = 100;
+		const frameaspectratio = 1912/1032;
+		const framewidth = frameheight * frameaspectratio;
+		const framesonstrip = Math.floor(width / framewidth);
+		for (let i = 0; i<framesonstrip; i++) {
+			const image = new paper.Raster(`/assets/drivemycar/sceneimages/${findScene(1 / framesonstrip * i)['Scene Number'].padStart(3, '0')}.jpg`);
+			image.scale(100 / 1032);
+			image.position.x = framewidth * i + framewidth / 2;
+			image.position.y = frameheight / 2;
+		}
+	}
+
+</script>
+</head>
+<body>
+	<canvas id="myCanvas" resize></canvas>
+
+	<style>
+	html,
+	body {
+		height: 100%;
+	}
+
+	/* Scale canvas with resize attribute to full size */
+	canvas[resize] {
+		width: 100%;
+		height: 100%;
+	}
+	</style>
+</body>
+</html>
