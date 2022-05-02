@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <link rel="stylesheet" href="./assets/application.css">
+    <link rel="stylesheet" href="./assets/vendor/animate.css">
+    <title>Trill Ring Speed</title>
+  </head>
+  <body>
+    <noscript>
+      <p class="notice bubble">
+        I'm sorry! For this to actully work you have to enable JavaScript in your browser.
+      </p>
+    </noscript>
+
+    <button id="connect-button" type="button" disabled>🔌 Connect</button>
+
+    <video class="main-video" src="./assets/output.mp4" autoplay loop muted width="100%">
+    </video>
+
+    <script>
+      let rawLatestValue = null;
+      let lineBuffer = '';
+      let start24rant = null;
+      let startTimestamp = null;
+      const video = document.querySelector('video');
+
+      function renderDemo() {
+        if (rawLatestValue === null || rawLatestValue === 'null') {
+          start24rant = null;
+        } else {
+          const latestValue = parseInt(rawLatestValue);
+          const r24rant = Math.trunc(latestValue / 150);
+
+          if (start24rant === null) {
+            start24rant = r24rant;
+            startTimestamp = video.currentTime;
+          }
+
+          // video.currentTime = startTimestamp + ((r24rant - start24rant) % 24) * 1/24;
+          console.log(r24rant, r24rant * (1/24));
+          video.currentTime = r24rant * (1/24);
+        }
+        window.requestAnimationFrame(renderDemo);
+      }
+
+      window.requestAnimationFrame(renderDemo);
+
+      async function getReader() {
+        port = await navigator.serial.requestPort({});
+        await port.open({ baudRate: 115200 });
+
+        connectButton.innerText = '🔌 Disconnect';
+
+        const appendStream = new WritableStream({
+          write(chunk) {
+            lineBuffer += chunk;
+
+            let lines = lineBuffer.split('\n');
+
+            if (lines.length > 1) {
+              lineBuffer = lines.pop();
+              rawLatestValue = lines.pop().trim();
+            }
+          }
+        });
+
+        port.readable
+          .pipeThrough(new TextDecoderStream())
+          .pipeTo(appendStream);
+      }
+    </script>
+    <!-- split -->
+
+    <script src="./assets/application.js"></script>
+  </body>
+</html>
