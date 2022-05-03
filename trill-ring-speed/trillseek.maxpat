@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 768.0, 96.0, 460.0, 920.0 ],
+		"rect" : [ 692.0, 96.0, 520.0, 920.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -129,7 +129,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 893.0, 297.266593277454376, 56.0, 22.0 ],
-					"text" : "-3"
+					"text" : "71"
 				}
 
 			}
@@ -266,7 +266,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 159.299998999999843, 700.5, 37.0, 20.0 ],
-					"text" : "1599"
+					"text" : "3600"
 				}
 
 			}
@@ -277,7 +277,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 19.299998999999843, 700.5, 39.0, 20.0 ],
-					"text" : "-1599"
+					"text" : "-3600"
 				}
 
 			}
@@ -320,13 +320,13 @@
 				"box" : 				{
 					"id" : "obj-45",
 					"maxclass" : "slider",
-					"min" : -1599.0,
+					"min" : -3600.0,
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 23.299998999999843, 725.5, 173.0, 27.0 ],
-					"size" : 1599.0
+					"size" : 3600.0
 				}
 
 			}
@@ -1085,12 +1085,13 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-1",
+					"linecount" : 2,
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_gl_texture", "" ],
-					"patching_rect" : [ 1129.0, 248.0, 316.0, 22.0 ],
-					"text" : "jit.movie @output_texture 1 @outputmode 1 @autostart 1"
+					"patching_rect" : [ 1129.0, 248.0, 301.0, 35.0 ],
+					"text" : "jit.movie @output_texture 1 @outputmode 1 @autostart 1 @engine viddll @cache_size 4"
 				}
 
 			}
@@ -1113,8 +1114,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 1129.0, 40.0, 801.0, 22.0 ],
-					"text" : "\"/Users/mngyuan/Documents/downloads/Tampopo (1985) [BluRay] [1080p] [YTS.AM]/Tampopo.1985.1080p.BluRay.x264-[YTS.AM]-Scene-459.mp4\""
+					"patching_rect" : [ 1129.0, 40.0, 708.0, 22.0 ],
+					"text" : "/Users/mngyuan/git/gid/video-editing-experiments/trill-ring-speed/Tampopo.1985.1080p.BluRay.x264-[YTS.AM]-Scene-459.hap.mov"
 				}
 
 			}
@@ -1176,7 +1177,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-59", 0 ],
-					"midpoints" : [ 1435.5, 312.0, 1578.0, 312.0, 1578.0, 351.0, 1609.0, 351.0 ],
+					"midpoints" : [ 1420.5, 312.0, 1578.0, 312.0, 1578.0, 351.0, 1609.0, 351.0 ],
 					"order" : 0,
 					"source" : [ "obj-1", 1 ]
 				}
@@ -1776,8 +1777,8 @@
 , 			{
 				"name" : "name of the cities",
 				"default" : 				{
-					"textcolor" : [ 0.129411764705882, 0.129411764705882, 0.129411764705882, 1.0 ],
 					"clearcolor" : [ 1.0, 0.011764705882353, 0.96078431372549, 0.0 ],
+					"textcolor" : [ 0.129411764705882, 0.129411764705882, 0.129411764705882, 1.0 ],
 					"fontname" : [ "Arial" ],
 					"fontface" : [ 1 ]
 				}
