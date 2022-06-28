@@ -7,7 +7,7 @@ Seek with the Trill Ring sensor
 [HAP video encoding instructions](https://gist.github.com/dlublin/e4585b872dd136ae88b2aa51a6a89aac)
 
 ```
-ffmpeg -i input.mp4 -c:v hap output.mov
+for i in *.mp4; do echo $i; ffmpeg -i "$i" -c:v hap -c:a copy "${i%.mp4}".mov; done
 ```
 
 ## Running an HTTP range request compatible server
