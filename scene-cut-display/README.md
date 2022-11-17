@@ -15,3 +15,10 @@ Displays every image from _Drive My Car_
 ## `paperjs/`
 
 An attempt with `paper.js`, which seems like an outdated drawing library
+
+## Further Work
+
+- One frame per minute
+- 100 even cuts
+- Fix scene transition detection
+- remove large binary files from repo
