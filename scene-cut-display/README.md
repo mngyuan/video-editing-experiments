@@ -10,7 +10,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Displays every image from _Drive My Car_
 
-`python3 -m http.server 8000 --directory public/drivemycar/sceneimages/`
+`python3 -m http.server 8000 --directory editdb/films/`
 
 ## `paperjs/`
 
